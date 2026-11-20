@@ -65,32 +65,16 @@
 </section>
 
 <section>
-  <div class="wrap two-col">
-    <div class="prose">
-      <div class="label"><span class="n">01</span> / Goal</div>
-      <h2>Why build an arm from scratch?</h2>
-      <p>Imitation learning needs a robot that can be teleoperated and that reports exactly where every joint is. Commercial arms that can do this are expensive and closed. The open-source Arctos design gets the mechanics most of the way there. My work is to <strong>fabricate it, add closed-loop control on every joint, and build the software</strong> that turns it into a data-collection platform.</p>
-      <div class="label" style="margin-top:28px"><span class="n">02</span> / My role</div>
-      <ul>
-        <li><strong>Fabrication and assembly:</strong> printed and assembled the full skeleton from a ~1,000-part CAD model, and planned a 25-week build schedule around print times and part dependencies.</li>
-        <li><strong>Electrical:</strong> designed a CAN bus that links six servo motor drivers and an Arduino-based gripper controller. The signal pair is daisy-chained and power runs in a star topology.</li>
-        <li><strong>Software:</strong> wrote Python scripts to check encoder function and calibration. I'm now writing a C++ SocketCAN driver and a LeRobot integration.</li>
-      </ul>
-    </div>
-    <figure class="figure">
-      <div class="media"><img src="assets/arctos-cycloidal-gearbox.jpg" alt="3D-printed cycloidal gearbox housing with a press-fit bearing, CAD model on screen behind it"></div>
-      <figcaption><b>Aug 7</b> Printed cycloidal gearbox housing next to its CAD model.</figcaption>
-    </figure>
-  </div>
-</section>
-
-<section>
   <div class="wrap">
     <div class="prose">
-      <div class="label"><span class="n">03</span> / Electrical</div>
-      <h2>One bus, seven nodes</h2>
-      <p>Every joint has its own closed-loop servo driver with a unique CAN ID, so the whole arm talks over a single twisted pair. Before anything went into the arm, I laid out every motor on the bench, labeled each one by joint and ID, and brought them up one at a time. That made faults easy to isolate with a multimeter.</p>
+      <div class="label">Electrical</div>
+      <h2>Wiring all seven motors onto one bus</h2>
+      <p>Each joint has its own closed-loop servo driver with a unique CAN ID, so the whole arm communicates over a single twisted pair. Before anything went into the arm, I laid every motor out on the bench in joint order, labeled each one with its joint, CAN ID and driver model, and brought them up one at a time.</p>
     </div>
+    <figure class="figure" style="margin:24px 0">
+      <div class="media"><img src="assets/arctos-wiring-layout.jpg" alt="All six joint motors and drivers laid out in order and labeled Joint X through C with CAN IDs 1 to 6"></div>
+      <figcaption><b>Bench layout</b> All six joint motors and drivers in order, each labeled with its joint, CAN ID and driver model.</figcaption>
+    </figure>
     <div class="arch" role="img" aria-label="CAN bus topology: a PC running Python and a C++ SocketCAN driver connects through a CAN adapter to six joint drivers (IDs 1–6) and a gripper controller (ID 7) on one daisy-chained bus">
       <div class="host">
         <div class="box"><b>PC</b>Python · C++ SocketCAN</div>
@@ -111,8 +95,45 @@
       </div>
       <div class="note">Power: star distribution from a single supply, kept separate from the signal pair.</div>
     </div>
+    <div class="two-col" style="margin-top:32px">
+      <div class="prose">
+        <h3 style="font-size:20px;margin-bottom:12px">What I learned</h3>
+        <ul>
+          <li><strong>Bring up one node at a time.</strong> Powering and addressing each driver separately before chaining them meant every fault traced back to a single motor instead of the whole bus.</li>
+          <li><strong>Label everything before integration.</strong> Writing each joint's name, CAN ID and driver on the bench saved a lot of guessing once the wires were routed through the arm.</li>
+          <li><strong>Keep signal and power separate.</strong> The CAN pair is daisy-chained from node to node and terminated at both ends, while power runs in a star from one supply, so a power problem on one joint doesn't take down communication.</li>
+          <li><strong>Check the encoders in software first.</strong> A short Python script that read back each joint's encoder let me verify function and calibration before the motors were mounted in the arm.</li>
+          <li><strong>Measure before you swap parts.</strong> Continuity and voltage checks at each connector isolated wiring faults faster than replacing components.</li>
+        </ul>
+      </div>
+      <figure class="figure">
+        <div class="media"><video src="assets/arctos-bench-bringup.mp4" poster="assets/arctos-bench-bringup-poster.jpg" controls muted playsinline preload="none"></video></div>
+        <figcaption><b>Bring-up</b> All six joint drivers and the gripper (ID 7) on the bus.</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
+
+<section>
+  <div class="wrap two-col">
+    <div class="prose">
+      <div class="label">Goal</div>
+      <h2>Why build an arm from scratch?</h2>
+      <p>Imitation learning needs a robot that can be teleoperated and that reports exactly where every joint is. Commercial arms that can do this are expensive and closed. The open-source Arctos design gets the mechanics most of the way there. My work is to <strong>fabricate it, add closed-loop control on every joint, and build the software</strong> that turns it into a data-collection platform.</p>
+      <div class="label" style="margin-top:28px">My role</div>
+      <ul>
+        <li><strong>Fabrication and assembly:</strong> printed and assembled the full skeleton from a ~1,000-part CAD model, and planned a 25-week build schedule around print times and part dependencies.</li>
+        <li><strong>Electrical:</strong> designed a CAN bus that links six servo motor drivers and an Arduino-based gripper controller. The signal pair is daisy-chained and power runs in a star topology.</li>
+        <li><strong>Software:</strong> wrote Python scripts to check encoder function and calibration. I'm now writing a C++ SocketCAN driver and a LeRobot integration.</li>
+      </ul>
+    </div>
+    <figure class="figure">
+      <div class="media"><img src="assets/arctos-cycloidal-gearbox.jpg" alt="3D-printed cycloidal gearbox housing with a press-fit bearing, CAD model on screen behind it"></div>
+      <figcaption><b>Aug 7</b> Printed cycloidal gearbox housing next to its CAD model.</figcaption>
+    </figure>
+  </div>
+</section>
+
 
 <section>
   <div class="wrap two-col">
@@ -121,11 +142,11 @@
       <figcaption><b>Aug 11</b> X-axis (base) joint commanded from the terminal under closed-loop control.</figcaption>
     </figure>
     <div class="prose">
-      <div class="label"><span class="n">04</span> / Mechanics</div>
+      <div class="label">Mechanics</div>
       <h2>Cycloidal reduction</h2>
       <p>The main joints use cycloidal gearboxes. An off-center cam pushes a lobed disc into a wobbling orbit against a ring of fixed pins, and that wobble becomes a large speed reduction with very little backlash. That makes this kind of gearbox a good fit for an arm that has to hold position precisely.</p>
       <p>It felt strange the first time I watched one move. Assembling the Y-axis gearbox by hand taught me more about the mechanism than any diagram did.</p>
-      <div class="label" style="margin-top:28px"><span class="n">05</span> / Current problem</div>
+      <div class="label" style="margin-top:28px">Current problem</div>
       <h2 style="font-size:22px">Z-axis gearbox</h2>
       <p>The Z-axis cycloidal gearbox gave me trouble once the arm was fully assembled. My working theory is that the printed parts are flexing under load. I'm reprinting the Z-axis parts with higher infill to stiffen them, and next I'll compare how the joint behaves before and after.</p>
       <figure class="figure" style="margin-top:18px">
@@ -139,7 +160,7 @@
 <section id="log">
   <div class="wrap">
     <div class="prose">
-      <div class="label"><span class="n">06</span> / Build log</div>
+      <div class="label">Build log</div>
       <h2>January to now, as it happened</h2>
       <p>Photos, videos and posts from each stage of the build, failures included. Click any photo to see it full size.</p>
     </div>
@@ -323,7 +344,7 @@
 <section>
   <div class="wrap">
     <div class="prose">
-      <div class="label"><span class="n">07</span> / Next</div>
+      <div class="label">Next</div>
       <h2>What's next</h2>
     </div>
     <div class="next-grid">

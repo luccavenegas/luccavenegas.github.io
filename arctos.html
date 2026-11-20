@@ -30,7 +30,7 @@
     <div class="p-hero-grid">
       <div>
         <h1>Arctos 6-DOF Robotic Arm</h1>
-        <p class="lede">A closed-loop, 3D-printed six-axis arm that I'm building and programming myself and documenting publicly as I go. The goal is a low-cost arm that can record teleoperation demonstrations for imitation learning, and then share that workflow with the open-source robotics community.</p>
+        <p class="lede">A closed-loop, 3D-printed 6-DOF arm that I've been building, programming and documenting publicly since January 2026. It has a ~1,000-part CAD model, 6 servo-driven joints plus a gripper, and 7 nodes on one CAN bus. The goal is a low-cost arm that can record teleoperation demonstrations for imitation learning, and then share that workflow with the open-source robotics community.</p>
         <div class="hero-actions">
           <a class="btn primary" href="#log">Jump to the build log ↓</a>
           <a class="btn" href="https://x.com/lucca_venegas" target="_blank" rel="noopener">Follow on X ↗</a>
@@ -123,13 +123,13 @@
       <div class="label" style="margin-top:28px">My role</div>
       <ul>
         <li><strong>Fabrication and assembly:</strong> printed and assembled the full skeleton from a ~1,000-part CAD model, and planned a 25-week build schedule around print times and part dependencies.</li>
-        <li><strong>Electrical:</strong> designed a CAN bus that links six servo motor drivers and an Arduino-based gripper controller. The signal pair is daisy-chained and power runs in a star topology.</li>
-        <li><strong>Software:</strong> wrote Python scripts to check encoder function and calibration. I'm now writing a C++ SocketCAN driver and a LeRobot integration.</li>
+        <li><strong>Electrical:</strong> designed a 7-node CAN bus linking 6 servo drivers (2× MKS 57D, 4× MKS 42D) and an Arduino gripper controller, with a daisy-chained signal pair and star-topology power.</li>
+        <li><strong>Software:</strong> wrote Python scripts to verify encoder function and calibration on all 6 joints before mounting. I'm now writing a C++ SocketCAN driver and a LeRobot integration.</li>
       </ul>
     </div>
     <figure class="figure">
-      <div class="media"><img src="assets/arctos-cycloidal-gearbox.jpg" alt="3D-printed cycloidal gearbox housing with a press-fit bearing, CAD model on screen behind it"></div>
-      <figcaption><b>Aug 7</b> Printed cycloidal gearbox housing next to its CAD model.</figcaption>
+      <div class="media"><img src="assets/arctos-gearbox-clean.jpg" alt="Assembled 3D-printed cycloidal gearbox"></div>
+      <figcaption><b>Aug 11</b> One of the assembled cycloidal gearboxes.</figcaption>
     </figure>
   </div>
 </section>
@@ -256,23 +256,14 @@
       </div>
 
       <div class="log-entry">
-        <div class="date">Aug 7</div>
-        <div class="log-card">
-          <h3>Cycloidal gearbox housing</h3>
-          <p>Printed the cycloidal housing, seated its main bearing, and checked the part against the CAD model.</p>
-          <div class="log-media">
-            <a href="assets/arctos-cycloidal-gearbox.jpg" target="_blank"><img src="assets/arctos-cycloidal-gearbox.jpg" alt="Cycloidal gearbox housing with bearing" loading="lazy"></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="log-entry">
         <div class="date">Aug 11</div>
         <div class="log-card">
           <h3>Gearbox assembled, base joint moving <span class="pill">milestone</span></h3>
           <p>Assembled a cycloidal gearbox and checked it by hand, then got the first powered motion of a real joint: the X-axis (base) commanded from the terminal.</p>
           <div class="log-media">
             <video src="assets/arctos-cycloidal-internals.mp4" poster="assets/arctos-cycloidal-internals-poster.jpg" controls muted playsinline preload="none"></video>
+            <a href="assets/arctos-gearbox-clean.jpg" target="_blank"><img src="assets/arctos-gearbox-clean.jpg" alt="Assembled cycloidal gearbox" loading="lazy"></a>
+            <a href="assets/arctos-output-plate.jpg" target="_blank"><img src="assets/arctos-output-plate.jpg" alt="Gearbox output plate, top view" loading="lazy"></a>
             <video src="assets/arctos-x-axis-test.mp4" poster="assets/arctos-x-axis-test-poster.jpg" controls muted playsinline preload="none"></video>
           </div>
         </div>

@@ -31,7 +31,7 @@
       <div>
         <div class="label">Engineering Portfolio</div>
         <h1>Lucca Venegas</h1>
-        <p class="subtitle">B.S.E. Mechanical Engineering, Robotics Concentration<br>University of Michigan · Class of 2029</p>
+        <p class="subtitle">B.S.E. Mechanical Engineering, Robotics Concentration<br>Sophomore at the University of Michigan · Class of 2029</p>
         <p class="lede">Hi, I'm Lucca. I'm a sophomore at Michigan studying mechanical engineering with a robotics concentration. I'm most interested in robot hardware: designing, building and wiring the physical side of machines that can sense and work in the real world.</p>
         <p class="lede small">Outside of class I play soccer and lacrosse, and I like to travel too. I speak English and Spanish.</p>
         <div class="hero-actions">
@@ -60,12 +60,21 @@
     <a class="featured" href="arctos.html">
       <div class="featured-media">
         <img src="assets/arctos-full-arm.jpg" alt="The fully assembled Arctos 6-DOF arm">
-        <img src="assets/arctos-cycloidal-gearbox.jpg" alt="3D-printed cycloidal gearbox housing with bearing, CAD on laptop behind">
+        <div class="fm-stack">
+          <img src="assets/arctos-gearbox-clean.jpg" alt="Assembled 3D-printed cycloidal gearbox">
+          <img src="assets/arctos-output-plate.jpg" alt="Cycloidal gearbox output plate">
+        </div>
       </div>
       <div class="featured-body">
         <div class="label">Featured · Personal project · Jan 2026 – present</div>
         <h3>Arctos 6-DOF Robotic Arm</h3>
-        <p>A closed-loop, 3D-printed six-axis arm that I'm building and programming on my own. I printed and assembled it from a ~1,000-part CAD model, wired six servo drivers onto a single CAN bus, and I'm now writing a C++ SocketCAN driver so the arm can collect teleoperation data for imitation learning.</p>
+        <p>A closed-loop, 3D-printed 6-DOF arm I've been building on my own since January 2026. I printed and assembled it from a ~1,000-part CAD model on a 25-week build plan, wired 6 servo drivers and an Arduino gripper controller onto one 7-node CAN bus, and have joints 1–3 moving under closed-loop control. Next is a C++ SocketCAN driver and LeRobot integration for collecting teleoperation data.</p>
+        <div class="spec card-spec">
+          <div>Degrees of freedom<b>6 + gripper</b></div>
+          <div>CAD model<b>~1,000 parts</b></div>
+          <div>CAN bus<b>7 nodes</b></div>
+          <div>Joints moving<b>3 of 6</b></div>
+        </div>
         <ul class="tags">
           <li>Cycloidal gearboxes</li><li>CAN bus</li><li>C++ / SocketCAN</li><li>Python</li><li>LeRobot</li><li>FDM printing</li>
         </ul>

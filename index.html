@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lucca Venegas — Mechanical Engineering &amp; Robotics</title>
+  <meta name="description" content="Engineering portfolio of Lucca Venegas, Mechanical Engineering (Robotics) student at the University of Michigan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top"><span class="logo-mark">LV</span>Lucca Venegas</a>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+      <a class="btn" href="assets/Lucca-Venegas-Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="label"><span class="n">●</span> Mechanical Engineering · Robotics · University of Michigan '29</div>
+        <h1>I build robots from the <span class="accent">hardware up.</span></h1>
+        <p class="lede">I'm Lucca, a sophomore ME student at Michigan. I do the CAD, the fabrication, the wiring and the code that makes a machine move. Right now that means a closed-loop 6-DOF robotic arm, battery packs for an open-source prosthetic leg, and carbon-fiber drone frames.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="arctos.html">See the Arctos build →</a>
+          <a class="btn" href="#projects">All projects</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="frame">
+          <video src="assets/arctos-full-arm-loop.mp4" poster="assets/arctos-full-arm-motion-poster.jpg" autoplay muted loop playsinline aria-label="The assembled Arctos arm with its first three joints moving under closed-loop control"></video>
+        </div>
+        <div class="callout">Joints 1–3 · <b>closed-loop</b> over CAN</div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="v">6-DOF</div><div class="k">robotic arm, built solo</div></div>
+      <div class="stat"><div class="v">~1,000</div><div class="k">part CAD assembly</div></div>
+      <div class="stat"><div class="v">IARC '26</div><div class="k">competition drone pilot</div></div>
+      <div class="stat"><div class="v">36 V</div><div class="k">prosthetic battery pack</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="label"><span class="n">01</span> / Projects</div>
+        <h2>Selected work</h2>
+      </div>
+    </div>
+
+    <a class="featured" href="arctos.html">
+      <div class="featured-media">
+        <img src="assets/arctos-full-arm.jpg" alt="The fully assembled Arctos 6-DOF arm">
+        <img src="assets/arctos-cycloidal-gearbox.jpg" alt="3D-printed cycloidal gearbox housing with bearing, CAD on laptop behind">
+      </div>
+      <div class="featured-body">
+        <div class="label">Featured · Personal project · Jan 2026 – present</div>
+        <h3>Arctos 6-DOF Robotic Arm</h3>
+        <p>A closed-loop, 3D-printed six-axis arm that I'm building and programming on my own. I printed and assembled it from a ~1,000-part CAD model, wired six servo drivers onto a single CAN bus, and I'm now writing a C++ SocketCAN driver so the arm can collect teleoperation data for imitation learning.</p>
+        <ul class="tags">
+          <li>Cycloidal gearboxes</li><li>CAN bus</li><li>C++ / SocketCAN</li><li>Python</li><li>LeRobot</li><li>FDM printing</li>
+        </ul>
+        <span class="more">Read the build log →</span>
+      </div>
+    </a>
+
+    <div class="cards">
+      <article class="card">
+        <div class="label">Research · Neurobionics Lab</div>
+        <h3>Open-Source Leg Battery Pack</h3>
+        <div class="org">University of Michigan Robotics · Aug 2026 – present</div>
+        <ul class="points">
+          <li>Designed and packaged lithium-ion cell configurations to fit the tight envelope inside the prosthetic's leg and ankle joint.</li>
+          <li>Worked with battery manufacturers to turn the custom pack into a design that can be mass-produced for open-source builders worldwide.</li>
+        </ul>
+        <div class="spec">
+          <div>Nominal<b>36 V</b></div>
+          <div>Capacity<b>~1–2 Ah</b></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="label">Team · MAAV</div>
+        <h3>Autonomous Drone Frame</h3>
+        <div class="org">Michigan Autonomous Aerial Vehicles · Aug 2025 – present</div>
+        <ul class="points">
+          <li>Fabricated carbon-fiber frame panels to vibration targets for LiDAR and camera mounting.</li>
+          <li>Waterjet-cut all four frames and checked each part against the drawing tolerances with calipers.</li>
+          <li>Piloted the drone at the 2026 International Aerial Robotics Competition, in extreme heat.</li>
+        </ul>
+        <div class="spec">
+          <div>Laminate<b>&lt; 4 mm</b></div>
+          <div>Frames cut<b>4</b></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="label">Internship · AdventHealth</div>
+        <h3>RFID Lobby Welcome System</h3>
+        <div class="org">Corporate Strategy &amp; FORGE · Summer 2026</div>
+        <ul class="points">
+          <li>Built a proof of concept that pairs a Zebra FXR90 UHF RFID reader with a display to greet badged visitors.</li>
+          <li>Wrote the RSSI proximity logic, set up the MQTT listener with auto-reconnect, and tuned antenna power to 25–30 dBm.</li>
+          <li>Presented it to leadership as a candidate for rollout across 57 hospitals.</li>
+        </ul>
+        <div class="spec">
+          <div>Reliability<b>100% / 25 trials</b></div>
+          <div>Trigger radius<b>5 ft</b></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="label"><span class="n">02</span> / Experience</div>
+        <h2>Where I've worked</h2>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="t-item">
+        <div class="when">Aug 2026 – present · Ann Arbor, MI</div>
+        <h3>Neurobionics Lab, University of Michigan Robotics</h3>
+        <div class="role">Assistant Researcher</div>
+        <p>Battery pack design for the Open-Source Leg, a robotic prosthetic used by research labs around the world. I handle the cell configuration, the packaging within the envelope, and the requirements for manufacturer production.</p>
+      </div>
+      <div class="t-item">
+        <div class="when">May 2026 – Jun 2026 · Altamonte Springs, FL</div>
+        <h3>AdventHealth, Corporate Strategy &amp; FORGE</h3>
+        <div class="role">Strategy Intern</div>
+        <p>Built and validated an RFID-triggered lobby experience from start to finish, covering the reader firmware, network stack, proximity logic and MQTT integration. Also completed da Vinci Xi robotic technical training.</p>
+      </div>
+      <div class="t-item">
+        <div class="when">Aug 2025 – present · Ann Arbor, MI</div>
+        <h3>Michigan Autonomous Aerial Vehicles</h3>
+        <div class="role">Structures Design Engineer &amp; IARC Pilot</div>
+        <p>Composite frame design and fabrication for the team's autonomous drone. I was the pilot on the competition flight line at IARC 2026.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="label"><span class="n">03</span> / Skills</div>
+        <h2>Toolbox</h2>
+      </div>
+    </div>
+    <div class="skills">
+      <div class="skill-group">
+        <div class="label">Design</div>
+        <h3>CAD &amp; Analysis</h3>
+        <ul class="tags"><li>SolidWorks</li><li>Onshape</li><li>Fusion 360</li><li>MATLAB</li></ul>
+      </div>
+      <div class="skill-group">
+        <div class="label">Build</div>
+        <h3>Fabrication</h3>
+        <ul class="tags"><li>FDM 3D printing</li><li>Waterjet</li><li>Carbon fiber</li><li>Soldering</li><li>Precision measurement</li></ul>
+      </div>
+      <div class="skill-group">
+        <div class="label">Wire</div>
+        <h3>Electronics</h3>
+        <ul class="tags"><li>CAN bus</li><li>Stepper / servo drivers</li><li>Multimeter fault isolation</li><li>Li-ion packs</li><li>RFID</li></ul>
+      </div>
+      <div class="skill-group">
+        <div class="label">Code</div>
+        <h3>Software</h3>
+        <ul class="tags"><li>C++</li><li>Python</li><li>Linux</li><li>MQTT</li><li>SocketCAN</li></ul>
+      </div>
+    </div>
+    <p class="label" style="margin-top:20px">Certifications: FAA Part 107 Remote Pilot (2026) · da Vinci Xi Robotic Technical Training (2026) · Languages: English, Spanish</p>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <div class="label" style="color:inherit;opacity:.6">04 / Contact</div>
+        <h2>Let's build something.</h2>
+        <p>I'm looking for robotics, mechatronics and hardware internships. The fastest way to reach me is email.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:luccav@umich.edu">luccav@umich.edu <span>Email ↗</span></a>
+        <a href="https://www.linkedin.com/in/lucca-venegas-876783354" target="_blank" rel="noopener">LinkedIn <span>↗</span></a>
+        <a href="https://x.com/lucca_venegas" target="_blank" rel="noopener">@lucca_venegas <span>Build log on X ↗</span></a>
+        <a href="assets/Lucca-Venegas-Resume.pdf" target="_blank" rel="noopener">Resume <span>PDF ↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Lucca Venegas</span>
+    <span class="mono">Ann Arbor, MI</span>
+  </div>
+</footer>
+
+</body>
+</html>

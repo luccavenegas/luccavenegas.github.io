@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arctos 6-DOF Robotic Arm — Lucca Venegas</title>
+  <meta name="description" content="Build log for a closed-loop, 3D-printed 6-DOF robotic arm: cycloidal gearboxes, CAN bus, and an imitation-learning pipeline.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="logo-mark">LV</span>Lucca Venegas</a>
+    <div class="nav-links">
+      <a href="#log">Build log</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#contact">Contact</a>
+      <a class="btn" href="assets/Lucca-Venegas-Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </div>
+  </div>
+</nav>
+
+<header class="p-hero">
+  <div class="wrap">
+    <a class="crumb" href="index.html#projects">← All projects</a>
+    <div class="p-hero-grid">
+      <div>
+        <h1>Arctos 6-DOF Robotic Arm</h1>
+        <p class="lede">A closed-loop, 3D-printed six-axis arm that I'm building and programming myself and documenting publicly as I go. The goal is a low-cost arm that can record teleoperation demonstrations for imitation learning, and then share that workflow with the open-source robotics community.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#log">Jump to the build log ↓</a>
+          <a class="btn" href="https://x.com/lucca_venegas" target="_blank" rel="noopener">Follow on X ↗</a>
+        </div>
+      </div>
+      <figure class="figure p-hero-img">
+        <div class="media"><img src="assets/arctos-full-arm.jpg" alt="The fully assembled Arctos 6-DOF arm, with all joints and wiring"></div>
+        <figcaption><b>Sep 14</b> All six joints assembled and wired.</figcaption>
+      </figure>
+    </div>
+
+    <div class="spec-table">
+      <div><div class="k">Degrees of freedom</div><div class="v">6 + gripper</div></div>
+      <div><div class="k">CAD model</div><div class="v">~1,000 parts</div></div>
+      <div><div class="k">Planned build</div><div class="v">25 weeks</div></div>
+      <div><div class="k">Status</div><div class="v">Joints 1–3 moving</div></div>
+      <div><div class="k">Reduction</div><div class="v">Cycloidal gearboxes</div></div>
+      <div><div class="k">Actuation</div><div class="v">MKS 57D / 42D servo</div></div>
+      <div><div class="k">Network</div><div class="v">CAN bus, 7 nodes</div></div>
+      <div><div class="k">Software</div><div class="v">C++, Python, LeRobot</div></div>
+    </div>
+  </div>
+</header>
+
+<section style="padding-top:24px">
+  <div class="wrap">
+    <figure class="figure showcase">
+      <div class="media"><video src="assets/arctos-full-arm-motion.mp4" poster="assets/arctos-full-arm-motion-poster.jpg" controls muted playsinline preload="metadata"></video></div>
+      <figcaption><b>Joints 1–3</b> X, Y and Z moving the assembled arm under closed-loop control. The wrist joints (A, B, C) are next.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap two-col">
+    <div class="prose">
+      <div class="label"><span class="n">01</span> / Goal</div>
+      <h2>Why build an arm from scratch?</h2>
+      <p>Imitation learning needs a robot that can be teleoperated and that reports exactly where every joint is. Commercial arms that can do this are expensive and closed. The open-source Arctos design gets the mechanics most of the way there. My work is to <strong>fabricate it, add closed-loop control on every joint, and build the software</strong> that turns it into a data-collection platform.</p>
+      <div class="label" style="margin-top:28px"><span class="n">02</span> / My role</div>
+      <ul>
+        <li><strong>Fabrication and assembly:</strong> printed and assembled the full skeleton from a ~1,000-part CAD model, and planned a 25-week build schedule around print times and part dependencies.</li>
+        <li><strong>Electrical:</strong> designed a CAN bus that links six servo motor drivers and an Arduino-based gripper controller. The signal pair is daisy-chained and power runs in a star topology.</li>
+        <li><strong>Software:</strong> wrote Python scripts to check encoder function and calibration. I'm now writing a C++ SocketCAN driver and a LeRobot integration.</li>
+      </ul>
+    </div>
+    <figure class="figure">
+      <div class="media"><img src="assets/arctos-cycloidal-gearbox.jpg" alt="3D-printed cycloidal gearbox housing with a press-fit bearing, CAD model on screen behind it"></div>
+      <figcaption><b>Aug 7</b> Printed cycloidal gearbox housing next to its CAD model.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="prose">
+      <div class="label"><span class="n">03</span> / Electrical</div>
+      <h2>One bus, seven nodes</h2>
+      <p>Every joint has its own closed-loop servo driver with a unique CAN ID, so the whole arm talks over a single twisted pair. Before anything went into the arm, I laid out every motor on the bench, labeled each one by joint and ID, and brought them up one at a time. That made faults easy to isolate with a multimeter.</p>
+    </div>
+    <div class="arch" role="img" aria-label="CAN bus topology: a PC running Python and a C++ SocketCAN driver connects through a CAN adapter to six joint drivers (IDs 1–6) and a gripper controller (ID 7) on one daisy-chained bus">
+      <div class="host">
+        <div class="box"><b>PC</b>Python · C++ SocketCAN</div>
+        <span class="wire">──</span>
+        <div class="box"><b>CAN adapter</b>PC ↔ bus interface</div>
+      </div>
+      <div class="bus">
+        <span class="bus-label">CAN-H / CAN-L · daisy-chained · terminated</span>
+        <div class="nodes">
+          <div class="box"><b>ID 1</b>Joint X<br>MKS 57D</div>
+          <div class="box"><b>ID 2</b>Joint Y<br>MKS 57D</div>
+          <div class="box"><b>ID 3</b>Joint Z<br>MKS 42D</div>
+          <div class="box"><b>ID 4</b>Joint A<br>MKS 42D</div>
+          <div class="box"><b>ID 5</b>Joint B<br>MKS 42D</div>
+          <div class="box"><b>ID 6</b>Joint C<br>MKS 42D</div>
+          <div class="box grip"><b>ID 7</b>Gripper<br>Arduino + servo</div>
+        </div>
+      </div>
+      <div class="note">Power: star distribution from a single supply, kept separate from the signal pair.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap two-col">
+    <figure class="figure tall">
+      <div class="media"><video src="assets/arctos-x-axis-test.mp4" poster="assets/arctos-x-axis-test-poster.jpg" controls muted playsinline preload="none"></video></div>
+      <figcaption><b>Aug 11</b> X-axis (base) joint commanded from the terminal under closed-loop control.</figcaption>
+    </figure>
+    <div class="prose">
+      <div class="label"><span class="n">04</span> / Mechanics</div>
+      <h2>Cycloidal reduction</h2>
+      <p>The main joints use cycloidal gearboxes. An off-center cam pushes a lobed disc into a wobbling orbit against a ring of fixed pins, and that wobble becomes a large speed reduction with very little backlash. That makes this kind of gearbox a good fit for an arm that has to hold position precisely.</p>
+      <p>It felt strange the first time I watched one move. Assembling the Y-axis gearbox by hand taught me more about the mechanism than any diagram did.</p>
+      <div class="label" style="margin-top:28px"><span class="n">05</span> / Current problem</div>
+      <h2 style="font-size:22px">Z-axis gearbox</h2>
+      <p>The Z-axis cycloidal gearbox gave me trouble once the arm was fully assembled. My working theory is that the printed parts are flexing under load. I'm reprinting the Z-axis parts with higher infill to stiffen them, and next I'll compare how the joint behaves before and after.</p>
+      <figure class="figure" style="margin-top:18px">
+        <div class="media"><video src="assets/arctos-z-axis-debug.mp4" poster="assets/arctos-z-axis-debug-poster.jpg" controls muted playsinline preload="none"></video></div>
+        <figcaption><b>Sep 12</b> Turning the Z-axis stage by hand to find where it binds.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="log">
+  <div class="wrap">
+    <div class="prose">
+      <div class="label"><span class="n">06</span> / Build log</div>
+      <h2>January to now, as it happened</h2>
+      <p>Photos, videos and posts from each stage of the build, failures included. Click any photo to see it full size.</p>
+    </div>
+
+    <div class="log">
+      <div class="log-entry">
+        <div class="date">Jan</div>
+        <div class="log-card">
+          <h3>Planning the build</h3>
+          <p>Studied the ~1,000-part Arctos CAD assembly, worked out which parts had to be printed before others, and laid out a 25-week build schedule around print time.</p>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="date">Feb–Apr</div>
+        <div class="log-card">
+          <h3>Printing and sub-assemblies</h3>
+          <p>FDM-printed the structural parts and gearbox components, and sourced the motors, MKS closed-loop drivers, bearings and hardware.</p>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="date">May 7</div>
+        <div class="log-card">
+          <h3>Going public</h3>
+          <p>Started posting the build on X, including the deep dives, lessons learned and failures.</p>
+          <a href="https://x.com/lucca_venegas/status/2052487186633609660" target="_blank" rel="noopener">View post ↗</a>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="date">May 18</div>
+        <div class="log-card">
+          <h3>Bench layout for CAN bring-up</h3>
+          <p>Laid all six motors and drivers out in joint order and taped on each joint's name, CAN ID and driver model, so that every fault could be traced to one node.</p>
+          <div class="log-media">
+            <a href="assets/arctos-wiring-layout.jpg" target="_blank"><img src="assets/arctos-wiring-layout.jpg" alt="Six motors laid out and labeled Joint X through C with CAN IDs 1–6" loading="lazy"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="date">May 21</div>
+        <div class="log-card">
+          <h3>All seven nodes on the bus <span class="pill">milestone</span></h3>
+          <p>Powered all six joint drivers plus the gripper (ID 7, an Arduino driving a hobby servo with a position readout) and connected them on a single daisy-chained CAN bus.</p>
+          <div class="log-media">
+            <video src="assets/arctos-bench-bringup.mp4" poster="assets/arctos-bench-bringup-poster.jpg" controls muted playsinline preload="none"></video>
+            <a href="assets/kf-bench-six-joints.jpg" target="_blank"><img src="assets/kf-bench-six-joints.jpg" alt="Joint drivers powered up on the bench" loading="lazy"></a>
+            <a href="assets/kf-gripper-servo-id7.jpg" target="_blank"><img src="assets/kf-gripper-servo-id7.jpg" alt="Gripper servo labeled ID 7 with a seven-segment readout" loading="lazy"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="date">May 24</div>
+        <div class="log-card">
+          <h3>CAN wiring walkthrough</h3>
+          <p>Recorded a walkthrough of the signal and power wiring on each driver before routing it into the arm.</p>
+          <div class="log-media">
+            <video src="assets/arctos-can-bus.mp4" poster="assets/arctos-can-bus-poster.jpg" controls muted playsinline preload="none"></video>
+            <a href="assets/kf-can-arduino.jpg" target="_blank"><img src="assets/kf-can-arduino.jpg" alt="Close-up of an MKS driver with CAN and power leads" loading="lazy"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="date">Aug 7</div>
+        <div class="log-card">
+          <h3>Cycloidal gearbox housing</h3>
+          <p>Printed the cycloidal housing, seated its main bearing, and checked the part against the CAD model.</p>
+          <div class="log-media">
+            <a href="assets/arctos-cycloidal-gearbox.jpg" target="_blank"><img src="assets/arctos-cycloidal-gearbox.jpg" alt="Cycloidal gearbox housing with bearing" loading="lazy"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="date">Aug 11</div>
+        <div class="log-card">
+          <h3>Base joint moves under closed-loop control <span class="pill">milestone</span></h3>
+          <p>First powered motion of a real joint: the X-axis (base) gearbox commanded from the terminal.</p>
+          <div class="log-media">
+            <video src="assets/arctos-x-axis-test.mp4" poster="assets/arctos-x-axis-test-poster.jpg" controls muted playsinline preload="none"></video>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="date">Aug 18</div>
+        <div class="log-card">
+          <h3>Wrist gearbox test</h3>
+          <p>Tested the wrist (A/B) gear stage for mesh and smoothness, then fitted its compact driver to the link.</p>
+          <div class="log-media">
+            <video src="assets/arctos-wrist-gearbox.mp4" poster="assets/arctos-wrist-gearbox-poster.jpg" controls muted playsinline preload="none"></video>
+            <a href="assets/kf-wrist-gearbox.jpg" target="_blank"><img src="assets/kf-wrist-gearbox.jpg" alt="Wrist link with exposed gear stage" loading="lazy"></a>
+            <a href="assets/kf-wrist-driver.jpg" target="_blank"><img src="assets/kf-wrist-driver.jpg" alt="Compact driver board mounted on the wrist link" loading="lazy"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="date">Sep 1</div>
+        <div class="log-card">
+          <h3>Y-axis gearbox, base and control box</h3>
+          <p>Finished the Y-axis cycloidal gearbox and mounted the shoulder motor and its MKS driver on the base. The control box in the base has two LED readouts, a power switch and a cooling fan.</p>
+          <div class="log-media">
+            <a href="assets/arctos-base-shoulder.jpg" target="_blank"><img src="assets/arctos-base-shoulder.jpg" alt="Base with shoulder motor and MKS driver mounted" loading="lazy"></a>
+            <a href="assets/arctos-control-box.jpg" target="_blank"><img src="assets/arctos-control-box.jpg" alt="Control box with two LED displays and a power switch" loading="lazy"></a>
+          </div>
+          <a href="https://x.com/lucca_venegas/status/2094867489339433093" target="_blank" rel="noopener">View post ↗</a>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="date">Sep 2</div>
+        <div class="log-card">
+          <h3>Up through the elbow</h3>
+          <p>Base, shoulder and elbow structure assembled, with the belt drive and threaded-rod hardware in place.</p>
+          <div class="log-media">
+            <a href="assets/arctos-arm-assembled.jpg" target="_blank"><img src="assets/arctos-arm-assembled.jpg" alt="Arm assembled from base through elbow" loading="lazy"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="date">Sep 7–8</div>
+        <div class="log-card">
+          <h3>First three axes moving <span class="pill">milestone</span></h3>
+          <p>X axis assembled for closed-loop use, then X, Y and Z all running under closed-loop control over CAN.</p>
+          <div class="log-media">
+            <video src="assets/arctos-full-arm-motion.mp4" poster="assets/arctos-full-arm-motion-poster.jpg" controls muted playsinline preload="none"></video>
+          </div>
+          <a href="https://x.com/lucca_venegas/status/2097172234372579534" target="_blank" rel="noopener">X axis post ↗</a>&nbsp;&nbsp;
+          <a href="https://x.com/lucca_venegas/status/2097530842541150469" target="_blank" rel="noopener">Three axes post ↗</a>
+        </div>
+      </div>
+
+      <div class="log-entry issue">
+        <div class="date">Sep 12</div>
+        <div class="log-card">
+          <h3>Chasing the Z-axis problem <span class="pill">debugging</span></h3>
+          <p>Turned the Z-axis stage by hand to find where the motion binds before deciding what to reprint.</p>
+          <div class="log-media">
+            <video src="assets/arctos-z-axis-debug.mp4" poster="assets/arctos-z-axis-debug-poster.jpg" controls muted playsinline preload="none"></video>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="date">Sep 14</div>
+        <div class="log-card">
+          <h3>All six joints assembled</h3>
+          <p>The complete arm is together, from the base to the wrist, with all of its wiring in place. Joints 1–3 move, and the wrist joints are still to be brought up.</p>
+          <div class="log-media">
+            <a href="assets/arctos-full-arm.jpg" target="_blank"><img src="assets/arctos-full-arm.jpg" alt="Fully assembled Arctos arm" loading="lazy"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-entry issue">
+        <div class="date">Sep 21</div>
+        <div class="log-card">
+          <h3>Z-axis gearbox rework <span class="pill">debugging</span></h3>
+          <p>The Z-axis cycloidal gearbox needs rework, so I'm reprinting it with more infill.</p>
+          <a href="https://x.com/lucca_venegas/status/2102197019163144440" target="_blank" rel="noopener">View post ↗</a>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="date">Now</div>
+        <div class="log-card">
+          <h3>Software stack</h3>
+          <p>Writing a C++ SocketCAN driver and a LeRobot integration to record teleoperation datasets with real-time video and closed-loop feedback.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="prose">
+      <div class="label"><span class="n">07</span> / Next</div>
+      <h2>What's next</h2>
+    </div>
+    <div class="next-grid">
+      <div class="card"><div class="label">Mechanical</div><h3>Fix the Z axis</h3><p>Reprint with higher infill, then check that the joint moves smoothly and holds its load.</p></div>
+      <div class="card"><div class="label">Electrical</div><h3>Bring up the wrist</h3><p>Get joints A, B and C (IDs 4–6) moving under closed-loop control so that all six axes are live.</p></div>
+      <div class="card"><div class="label">Software</div><h3>SocketCAN driver</h3><p>A C++ driver that commands all six joints and reads their encoders at a fixed control rate.</p></div>
+      <div class="card"><div class="label">Learning</div><h3>Imitation learning</h3><p>Collect teleoperation demos through LeRobot and train a policy that runs on the arm.</p></div>
+    </div>
+    <p style="margin-top:32px"><a class="btn" href="https://x.com/lucca_venegas" target="_blank" rel="noopener">Follow the build on X ↗</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="crumb" href="index.html">← Back to portfolio</a>
+    <span>© 2026 Lucca Venegas</span>
+  </div>
+</footer>
+
+</body>
+</html>

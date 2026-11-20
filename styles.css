@@ -92,25 +92,16 @@ p { margin: 0 0 1em; }
 .callout b { color: var(--accent); }
 .subtitle { font-size: 16px; color: var(--ink-2); font-weight: 500; margin: -6px 0 18px; }
 .lede.small { font-size: 16px; color: var(--ink-3); }
-.hero-photos {
-  display: grid; grid-template-columns: 1.25fr 1fr; grid-template-rows: repeat(3, 1fr);
-  gap: 8px; height: 560px;
-}
-.ph { margin: 0; position: relative; overflow: hidden; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); }
+.hero-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ph { margin: 0; position: relative; overflow: hidden; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); aspect-ratio: 1 / 1; }
 .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
-.ph figcaption {
-  position: absolute; left: 8px; bottom: 8px; padding: 3px 8px; border-radius: 4px;
-  background: rgba(10,12,14,.65); color: #f2f1ed; font-family: var(--mono); font-size: 11px;
-}
-.ph-main { grid-row: 1 / 4; }
-.ph-kyoto img { object-position: 50% 12%; }
+.ph-main { grid-column: 1 / -1; aspect-ratio: 4 / 5; }
+.ph-main img { object-position: 50% 60%; }
+.ph-kyoto img { object-position: 50% 15%; }
 .ph-lax img { object-position: 50% 30%; }
 .stats.facts .v { font-size: 17px; font-weight: 600; letter-spacing: 0; }
 .stats.facts .k { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
-@media (max-width: 900px) { .hero-photos { height: 480px; } }
 @media (max-width: 640px) {
-  .hero-photos { grid-template-columns: repeat(3, 1fr); grid-template-rows: 340px 130px; height: auto; }
-  .ph-main { grid-row: auto; grid-column: 1 / -1; }
   .ph figcaption { font-size: 10px; left: 6px; bottom: 6px; }
 }
 .stats {
@@ -318,3 +309,27 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* ---------- Experience blocks ---------- */
+.xp { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 36px 0; border-top: 1px solid var(--line); }
+.xp:first-of-type { border-top: 0; padding-top: 8px; }
+.xp > * { min-width: 0; }
+.xp .when { font-size: 14px; color: var(--ink-3); }
+.xp h3 { font-size: 22px; margin: 4px 0 2px; }
+.xp .role { color: var(--ink-2); font-weight: 500; margin-bottom: 12px; }
+.xp p { color: var(--ink-2); }
+.xp ul.points { margin: 0 0 18px; padding-left: 18px; color: var(--ink-2); font-size: 16px; }
+.xp ul.points li { margin-bottom: 6px; }
+.xp .spec { margin-top: 0; max-width: 360px; }
+.xp-media { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-content: start; }
+.xp-media .span2 { grid-column: 1 / -1; }
+.xp-media img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.xp-media .span2 img { aspect-ratio: 16/9; }
+.xp-media figcaption { font-size: 13px; }
+.xp:only-child, .xp:not(:has(.xp-media)) { grid-template-columns: 1fr; }
+.xp:not(:has(.xp-media)) .xp-text { max-width: 720px; }
+@media (max-width: 900px) { .xp { grid-template-columns: 1fr; gap: 20px; } }
+.media-row.three { grid-template-columns: repeat(3, 1fr); }
+.media-row.three img, .media-row.three video { aspect-ratio: 4/3; object-fit: cover; width: 100%; background: #000; }
+@media (max-width: 760px) { .media-row.three { grid-template-columns: 1fr; } }
+.two-col .figure:not(.tall) video { max-height: 560px; object-fit: cover; }

@@ -350,3 +350,17 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
 .scene-box { border-radius: 12px; border: 1px solid var(--line); overflow: hidden; background: #f4f4f2; position: relative; }
 #homeScene { width: 100%; aspect-ratio: 16/11; display: block; cursor: grab; }
 @media (max-width: 900px) { .demo-grid { grid-template-columns: 1fr; } #homeScene { aspect-ratio: 4/4.2; } }
+
+/* ---------- Arctos "why" callout ---------- */
+.why-section { padding: 16px 0 40px; }
+.why { display: grid; grid-template-columns: 1.25fr 1fr; gap: 40px; align-items: start; background: var(--surface-2); border: 1px solid var(--line); border-left: 4px solid var(--ink); border-radius: 12px; padding: 36px; }
+.why > * { min-width: 0; }
+.why h2 { font-size: clamp(26px, 3.4vw, 34px); margin: 6px 0 14px; }
+.why h3 { font-size: 18px; margin: 22px 0 8px; }
+.why p, .why li { color: var(--ink-2); }
+.why ul { padding-left: 20px; margin: 0; }
+.why li { margin-bottom: 8px; }
+.why strong { color: var(--ink); }
+.why .figure img { aspect-ratio: 1 / 1; object-fit: cover; }
+.p-hero .lede strong { color: var(--ink); font-weight: 600; }
+@media (max-width: 900px) { .why { grid-template-columns: 1fr; padding: 24px; gap: 24px; } }

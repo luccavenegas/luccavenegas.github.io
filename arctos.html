@@ -30,7 +30,7 @@
     <div class="p-hero-grid">
       <div>
         <h1>Arctos 6-DOF Robotic Arm</h1>
-        <p class="lede">A closed-loop, 3D-printed 6-DOF arm that I've been building, programming and documenting publicly since January 2026. It has a ~1,000-part CAD model, 6 servo-driven joints plus a gripper, and 7 nodes on one CAN bus. The goal is a low-cost arm that can record teleoperation demonstrations for imitation learning, and then share that workflow with the open-source robotics community.</p>
+        <p class="lede">A closed-loop, 3D-printed 6-DOF arm that I've been building, programming and documenting publicly since January 2026. It has a ~1,000-part CAD model, 6 servo-driven joints plus a gripper, and 7 nodes on one CAN bus. <strong>My goal is to build a low-cost arm that can record teleoperation demonstrations for imitation learning, and then share that workflow with the open-source robotics community.</strong> If I can shrink the sim-to-real gap on a budget, 3D-printed arm, I can only imagine what I can do with top-of-the-line machinery.</p>
         <div class="hero-actions">
           <a class="btn primary" href="#log">Jump to the build log ↓</a>
           <a class="btn" href="https://x.com/lucca_venegas" target="_blank" rel="noopener">Follow on X ↗</a>
@@ -54,6 +54,28 @@
     </div>
   </div>
 </header>
+
+<section class="why-section">
+  <div class="wrap">
+    <div class="why">
+      <div class="why-text">
+        <div class="label">The why</div>
+        <h2>Why build an arm from scratch?</h2>
+        <p>Imitation learning needs a robot that can be teleoperated and that reports exactly where every joint is. Commercial arms that can do this are expensive and closed. The open-source Arctos design gets the mechanics most of the way there. My work is to <strong>fabricate it, add closed-loop control on every joint, and build the software</strong> that turns it into a data-collection platform.</p>
+        <h3>My role</h3>
+        <ul>
+          <li><strong>Fabrication and assembly:</strong> printed and assembled the full skeleton from a ~1,000-part CAD model, and planned a 25-week build schedule around print times and part dependencies.</li>
+          <li><strong>Electrical:</strong> designed a 7-node CAN bus linking 6 servo drivers (2× MKS 57D, 4× MKS 42D) and an Arduino gripper controller, with a daisy-chained signal pair and star-topology power.</li>
+          <li><strong>Software:</strong> wrote Python scripts to verify encoder function and calibration on all 6 joints before mounting. I'm now writing a C++ SocketCAN driver and a LeRobot integration.</li>
+        </ul>
+      </div>
+      <figure class="figure">
+        <div class="media"><img src="assets/arctos-soldering-setup.jpg" alt="Soldering setup on a windowsill: a desk fan blowing fumes out the open window, a soldering iron and board on a sheet of cardboard, and solder and flux tins"></div>
+        <figcaption><b>My soldering setup</b> As you can see here, I was soldering on my windowsill, with a desk fan pushing the fumes out the window and a piece of cardboard as my work surface, and I got it done.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
 
 <section style="padding-top:24px">
   <div class="wrap">
@@ -111,26 +133,6 @@
         <figcaption><b>Bring-up</b> All six joint drivers and the gripper (ID 7) on the bus.</figcaption>
       </figure>
     </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap two-col">
-    <div class="prose">
-      <div class="label">Goal</div>
-      <h2>Why build an arm from scratch?</h2>
-      <p>Imitation learning needs a robot that can be teleoperated and that reports exactly where every joint is. Commercial arms that can do this are expensive and closed. The open-source Arctos design gets the mechanics most of the way there. My work is to <strong>fabricate it, add closed-loop control on every joint, and build the software</strong> that turns it into a data-collection platform.</p>
-      <div class="label" style="margin-top:28px">My role</div>
-      <ul>
-        <li><strong>Fabrication and assembly:</strong> printed and assembled the full skeleton from a ~1,000-part CAD model, and planned a 25-week build schedule around print times and part dependencies.</li>
-        <li><strong>Electrical:</strong> designed a 7-node CAN bus linking 6 servo drivers (2× MKS 57D, 4× MKS 42D) and an Arduino gripper controller, with a daisy-chained signal pair and star-topology power.</li>
-        <li><strong>Software:</strong> wrote Python scripts to verify encoder function and calibration on all 6 joints before mounting. I'm now writing a C++ SocketCAN driver and a LeRobot integration.</li>
-      </ul>
-    </div>
-    <figure class="figure">
-      <div class="media"><img src="assets/arctos-gearbox-clean.jpg" alt="Assembled 3D-printed cycloidal gearbox"></div>
-      <figcaption><b>Aug 11</b> One of the assembled cycloidal gearboxes.</figcaption>
-    </figure>
   </div>
 </section>
 

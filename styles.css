@@ -96,7 +96,7 @@ p { margin: 0 0 1em; }
 .ph { margin: 0; position: relative; overflow: hidden; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); aspect-ratio: 1 / 1; }
 .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
 .ph-main { grid-column: 1 / -1; aspect-ratio: 4 / 5; }
-.ph-main img { object-position: 50% 60%; }
+.ph-main img { object-position: 50% 55%; }
 .ph-kyoto img { object-position: 50% 15%; }
 .ph-lax img { object-position: 50% 30%; }
 .stats.facts .v { font-size: 17px; font-weight: 600; letter-spacing: 0; }

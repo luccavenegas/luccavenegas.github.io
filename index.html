@@ -17,6 +17,7 @@
     <a class="logo" href="#top"><span class="logo-mark">LV</span>Lucca Venegas</a>
     <div class="nav-links">
       <a href="#projects">Projects</a>
+      <a href="#demo">Demo</a>
       <a href="#experience">Experience</a>
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
@@ -33,8 +34,8 @@
         <h1>Lucca Venegas</h1>
         <p class="subtitle">B.S.E. Mechanical Engineering, Robotics Concentration<br>Sophomore at the University of Michigan · Class of 2029</p>
         <div class="intro">
-          <p>Hi, I'm Lucca. I was born in Miami, moved to Orlando when I was three, and grew up there. I've always had a passion for building, going back to middle school when I was on the LEGO robotics team.</p>
-          <p>I stepped away from robotics in high school, but rediscovered it while applying to college, and it's what led me to Michigan. It's been my drive here ever since. Physical AI is at its earliest point, and I think this is the perfect time for me to be experiencing the mechanical engineering side of a field I believe will change the world. My hope is to use this technology to help others by connecting all parts of the stack together.</p>
+          <p>Hi, I'm Lucca. I was born in Miami, moved to Orlando when I was three, and grew up there. I've always liked building things, going back to middle school when I was on the LEGO robotics team.</p>
+          <p>I stepped away from robotics in high school and came back to it while applying to college, which is what led me to Michigan. I'm most interested in the mechanical side of robotics: designing and building the parts that let a robot move and work in the real world. Physical AI is still early, and I'm glad to be learning mechanical engineering while the field grows. Long term, I want to build hardware that helps people.</p>
           <p>In my free time I love playing and watching sports, especially football and soccer, hanging out with friends, listening to music and traveling. I also speak English and Spanish. Feel free to reach out if you'd like to talk about robotics, my projects or opportunities.</p>
         </div>
         <div class="hero-actions">
@@ -85,6 +86,34 @@
       </div>
     </a>
 
+  </div>
+</section>
+
+<section id="demo" class="demo-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="label">Interactive demo · AdventHealth internship</div>
+        <h2>RFID to Proto Luma proof of concept</h2>
+      </div>
+    </div>
+    <div class="demo-grid">
+      <div class="demo-text">
+        <p>A badge-holder walks up, a long-range RFID reader picks up their badge, and a life-size Proto Luma holographic display switches from an idle loop to a personalized greeting. I built the reader setup and the software end to end.</p>
+        <p class="muted">This model is live. Click any part or label to see what it does, and drag to look around.</p>
+        <div class="spec">
+          <div>Reliability<b>100% over 25 trials</b></div>
+          <div>Trigger radius<b>~5 ft</b></div>
+          <div>Reader<b>Zebra FXR90</b></div>
+          <div>Display<b>Proto Luma</b></div>
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="rfid.html">Open the full demo →</a>
+          <button class="btn" type="button" id="homeReplay">▶ Replay walk-up</button>
+        </div>
+      </div>
+      <div class="scene-box"><canvas id="homeScene" aria-label="Interactive 3D model of the RFID to Proto Luma proof of concept"></canvas></div>
+    </div>
   </div>
 </section>
 
@@ -219,5 +248,22 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<script src="assets/luma-scene.js" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  const c = document.getElementById('homeScene');
+  let api = null;
+  const start = () => {
+    if (api || !window.LumaScene) return;
+    api = LumaScene.mount({ canvas: c });
+    document.getElementById('homeReplay').onclick = () => api && api.replay();
+  };
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { start(); io.disconnect(); } }, { rootMargin: '300px' });
+    io.observe(c);
+  } else start();
+});
+</script>
 </body>
 </html>

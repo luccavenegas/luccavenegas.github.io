@@ -16,6 +16,7 @@
   <div class="wrap">
     <a class="logo" href="index.html"><span class="logo-mark">LV</span>Lucca Venegas</a>
     <div class="nav-links">
+      <a href="#model">3D model</a>
       <a href="#log">Build log</a>
       <a href="index.html#projects">Projects</a>
       <a href="index.html#contact">Contact</a>
@@ -55,6 +56,15 @@
   </div>
 </header>
 
+<section style="padding-top:24px">
+  <div class="wrap">
+    <figure class="figure showcase">
+      <div class="media"><video src="assets/arctos-full-arm-motion.mp4" poster="assets/arctos-full-arm-motion-poster.jpg" controls muted playsinline preload="metadata"></video></div>
+      <figcaption><b>Joints 1–3</b> X, Y and Z moving the assembled arm under closed-loop control. The wrist joints (A, B, C) are next.</figcaption>
+    </figure>
+  </div>
+</section>
+
 <section class="why-section">
   <div class="wrap">
     <div class="why">
@@ -77,12 +87,26 @@
   </div>
 </section>
 
-<section style="padding-top:24px">
+<section class="motion-section">
   <div class="wrap">
-    <figure class="figure showcase">
-      <div class="media"><video src="assets/arctos-full-arm-motion.mp4" poster="assets/arctos-full-arm-motion-poster.jpg" controls muted playsinline preload="metadata"></video></div>
-      <figcaption><b>Joints 1–3</b> X, Y and Z moving the assembled arm under closed-loop control. The wrist joints (A, B, C) are next.</figcaption>
-    </figure>
+    <div class="label">In motion</div>
+    <h2 style="font-size:26px;margin:6px 0 16px">Joints running on the bench</h2>
+    <div class="motion-row">
+      <figure class="figure"><div class="media"><video src="assets/arctos-x-axis-test.mp4" poster="assets/arctos-x-axis-test-poster.jpg" autoplay muted loop playsinline></video></div><figcaption><b>Aug 11</b> Base joint commanded from the terminal.</figcaption></figure>
+      <figure class="figure"><div class="media"><video src="assets/arctos-base-shoulder-motion.mp4" poster="assets/arctos-base-shoulder-motion-poster.jpg" autoplay muted loop playsinline></video></div><figcaption><b>Sep 1</b> Base rotating with the shoulder mounted.</figcaption></figure>
+      <figure class="figure"><div class="media"><video src="assets/arctos-wrist-gearbox.mp4" poster="assets/arctos-wrist-gearbox-poster.jpg" autoplay muted loop playsinline></video></div><figcaption><b>Aug 18</b> The wrist's planetary gearbox running.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="cad-section" id="model">
+  <div class="wrap">
+    <div class="label">Interactive 3D model</div>
+    <h2 style="font-size:clamp(26px,3.4vw,34px);margin:6px 0 10px">Move the arm yourself</h2>
+    <p class="cad-intro">This is the Arctos arm's own model, with the same six joints I wired up: base, shoulder, elbow and three wrist axes, plus the gripper. Drag to look around, use the sliders to move each joint, or pick a pose.</p>
+    <div class="cad-box"><canvas id="arctosCad" aria-label="Interactive 3D model of the Arctos 6-DOF arm"></canvas></div>
+    <div id="arctosCadUi"></div>
+    <p class="note" style="margin-top:12px">Model: Arctos Robotics' official simulation model and joint layout (<a href="https://github.com/Arctos-Robotics/ROS" target="_blank" rel="noopener">Arctos-Robotics/ROS</a>, MIT License), simplified for the web. Joint limits here are for illustration.</p>
   </div>
 </section>
 
@@ -274,8 +298,8 @@
       <div class="log-entry">
         <div class="date">Aug 18</div>
         <div class="log-card">
-          <h3>Wrist gearbox test</h3>
-          <p>Tested the wrist (A/B) gear stage for mesh and smoothness, then fitted its compact driver to the link.</p>
+          <h3>Planetary wrist gearbox test</h3>
+          <p>Tested the wrist's planetary gear stage for mesh and smoothness, then fitted its compact driver to the link.</p>
           <div class="log-media">
             <video src="assets/arctos-wrist-gearbox.mp4" poster="assets/arctos-wrist-gearbox-poster.jpg" controls muted playsinline preload="none"></video>
             <a href="assets/kf-wrist-gearbox.jpg" target="_blank"><img src="assets/kf-wrist-gearbox.jpg" alt="Wrist link with exposed gear stage" loading="lazy"></a>
@@ -387,5 +411,14 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<script src="assets/arctos-viewer.js" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  const c = document.getElementById('arctosCad'); let started = false;
+  const go = () => { if (started || !window.ArctosViewer) return; started = true; ArctosViewer.mount({ canvas: c, controls: document.getElementById('arctosCadUi') }); };
+  if ('IntersectionObserver' in window) { const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { go(); io.disconnect(); } }, { rootMargin: '400px' }); io.observe(c); } else go();
+});
+</script>
 </body>
 </html>

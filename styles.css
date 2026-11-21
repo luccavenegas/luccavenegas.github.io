@@ -364,3 +364,13 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
 .why .figure img { aspect-ratio: 1 / 1; object-fit: cover; }
 .p-hero .lede strong { color: var(--ink); font-weight: 600; }
 @media (max-width: 900px) { .why { grid-template-columns: 1fr; padding: 24px; gap: 24px; } }
+.motion-section { padding: 8px 0 40px; }
+.motion-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.motion-row video { width: 100%; aspect-ratio: 4/5; object-fit: cover; background: #000; }
+@media (max-width: 760px) { .motion-row { grid-template-columns: 1fr 1fr; } .motion-row figure:last-child { grid-column: 1 / -1; } .motion-row figure:last-child video { aspect-ratio: 16/10; } }
+.featured-media video { width: 100%; height: 100%; object-fit: cover; background: #e9e8e4; }
+.cad-section { padding: 8px 0 48px; }
+.cad-intro { color: var(--ink-2); max-width: 44em; }
+.cad-box { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #f4f4f2; }
+#arctosCad { width: 100%; aspect-ratio: 16/9; display: block; }
+@media (max-width: 640px) { #arctosCad { aspect-ratio: 4/5; } }

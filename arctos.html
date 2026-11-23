@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Arctos 6-DOF Robotic Arm — Lucca Venegas</title>
-  <meta name="description" content="Build log for a closed-loop, 3D-printed 6-DOF robotic arm: cycloidal gearboxes, CAN bus, and an imitation-learning pipeline.">
+  <meta name="description" content="Build log for a closed-loop, 3D-printed 6-DOF robotic arm: belt, cycloidal and planetary reductions, CAN bus, and an imitation-learning pipeline.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -45,11 +45,15 @@
 
     <div class="spec-table">
       <div><div class="k">Degrees of freedom</div><div class="v">6 + gripper</div></div>
-      <div><div class="k">CAD model</div><div class="v">~1,000 parts</div></div>
-      <div><div class="k">Planned build</div><div class="v">25 weeks</div></div>
+      <div><div class="k">Max reach</div><div class="v">600 mm</div></div>
+      <div><div class="k">Rated payload</div><div class="v">2 kg</div></div>
       <div><div class="k">Status</div><div class="v">Joints 1–3 moving</div></div>
-      <div><div class="k">Reduction</div><div class="v">Cycloidal gearboxes</div></div>
-      <div><div class="k">Actuation</div><div class="v">MKS 57D / 42D servo</div></div>
+      <div><div class="k">CAD model</div><div class="v">~1,000 parts</div></div>
+      <div><div class="k">Printed parts</div><div class="v">168</div></div>
+      <div><div class="k">Planned build</div><div class="v">25 weeks</div></div>
+      <div><div class="k">Hardware cost</div><div class="v">~$500 (closed-loop)</div></div>
+      <div><div class="k">Reduction</div><div class="v">Belt · cycloidal · planetary</div></div>
+      <div><div class="k">Motors</div><div class="v">NEMA 23 (X, Y) · NEMA 17 (Z–C)</div></div>
       <div><div class="k">Network</div><div class="v">CAN bus, 7 nodes</div></div>
       <div><div class="k">Software</div><div class="v">C++, Python, LeRobot</div></div>
     </div>
@@ -125,7 +129,7 @@
       <div class="host">
         <div class="box"><b>PC</b>Python · C++ SocketCAN</div>
         <span class="wire">──</span>
-        <div class="box"><b>CAN adapter</b>PC ↔ bus interface</div>
+        <div class="box"><b>MKS CANable V2</b>USB ↔ CAN adapter</div>
       </div>
       <div class="bus">
         <span class="bus-label">CAN-H / CAN-L · daisy-chained · terminated</span>
@@ -169,8 +173,8 @@
     </figure>
     <div class="prose">
       <div class="label">Mechanics</div>
-      <h2>Cycloidal reduction</h2>
-      <p>The main joints use cycloidal gearboxes. An off-center cam pushes a lobed disc into a wobbling orbit against a ring of fixed pins, and that wobble becomes a large speed reduction with very little backlash. That makes this kind of gearbox a good fit for an arm that has to hold position precisely.</p>
+      <h2>Three kinds of reduction</h2>
+      <p>Each axis uses the reduction that suits its job. The base (X) turns on a <strong>1:13.5 belt reduction</strong>. The shoulder and elbow (Y, Z) carry the most load, so they use <strong>1:150 cycloidal gearboxes</strong>: an off-center cam pushes a lobed disc into a wobbling orbit against a ring of fixed pins, which gives a large reduction with very little backlash. The three wrist axes (A, B, C) use compact <strong>compound planetary gearboxes</strong> at 1:48 and 1:67.82.</p>
       <p>It felt strange the first time I watched one move. Assembling the Y-axis gearbox by hand taught me more about the mechanism than any diagram did.</p>
       <div class="label" style="margin-top:28px">Current problem</div>
       <h2 style="font-size:22px">Z-axis gearbox</h2>
@@ -180,6 +184,25 @@
         <figcaption><b>Sep 12</b> Turning the Z-axis stage by hand to find where it binds.</figcaption>
       </figure>
     </div>
+  </div>
+  <div class="wrap" style="margin-top:40px">
+    <h3 style="font-size:20px;margin-bottom:6px">Drivetrain by axis</h3>
+    <p class="note" style="margin:0 0 14px">Ratios and motors from the Arctos closed-loop specifications. CAN IDs are the ones on my build. The last column is how far the joint moves for one full step of a 1.8° stepper (1.8° ÷ ratio), before microstepping.</p>
+    <div class="dt-wrap">
+      <table class="dt">
+        <thead><tr><th>Axis</th><th>Joint</th><th>Reduction</th><th>Ratio</th><th>Motor</th><th>Driver</th><th>CAN ID</th><th>Per motor step</th></tr></thead>
+        <tbody>
+          <tr><td>X</td><td>Base</td><td>Belt</td><td>1:13.5</td><td>NEMA 23</td><td>MKS 57D</td><td>1</td><td>0.133°</td></tr>
+          <tr><td>Y</td><td>Shoulder</td><td>Cycloidal</td><td>1:150</td><td>NEMA 23</td><td>MKS 57D</td><td>2</td><td>0.012°</td></tr>
+          <tr><td>Z</td><td>Elbow</td><td>Cycloidal</td><td>1:150</td><td>NEMA 17</td><td>MKS 42D</td><td>3</td><td>0.012°</td></tr>
+          <tr><td>A</td><td>Wrist 1</td><td>Compound planetary</td><td>1:48</td><td>NEMA 17</td><td>MKS 42D</td><td>4</td><td>0.0375°</td></tr>
+          <tr><td>B</td><td>Wrist 2</td><td>Compound planetary</td><td>1:67.82</td><td>NEMA 17</td><td>MKS 42D</td><td>5</td><td>0.0265°</td></tr>
+          <tr><td>C</td><td>Wrist 3</td><td>Compound planetary</td><td>1:67.82</td><td>NEMA 17</td><td>MKS 42D</td><td>6</td><td>0.0265°</td></tr>
+          <tr><td>—</td><td>Gripper</td><td>Direct</td><td>—</td><td>DS3225 servo</td><td>Arduino</td><td>7</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:10px">Torque scales with the ratio too: ignoring losses, the cycloidal stages multiply motor torque by up to 150×, which is why they sit at the shoulder and elbow where the arm's weight acts over the longest lever.</p>
   </div>
   <div class="wrap" style="margin-top:40px">
     <h3 style="font-size:20px;margin-bottom:14px">Building the gearbox</h3>

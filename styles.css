@@ -374,3 +374,10 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
 .cad-box { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #f4f4f2; }
 #arctosCad { width: 100%; aspect-ratio: 16/9; display: block; }
 @media (max-width: 640px) { #arctosCad { aspect-ratio: 4/5; } }
+.dt-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+.dt { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 640px; }
+.dt th { text-align: left; font-weight: 600; color: var(--ink-3); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; background: var(--surface-2); padding: 10px 12px; }
+.dt td { padding: 10px 12px; border-top: 1px solid var(--line); color: var(--ink-2); }
+.dt td:first-child { font-weight: 700; color: var(--ink); }
+.dt td:nth-child(4), .dt td:last-child { font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 600; }
+.spec-table { grid-template-columns: repeat(4, 1fr); }

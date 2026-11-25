@@ -381,3 +381,5 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
 .dt td:first-child { font-weight: 700; color: var(--ink); }
 .dt td:nth-child(4), .dt td:last-child { font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 600; }
 .spec-table { grid-template-columns: repeat(4, 1fr); }
+.featured-media { grid-template-columns: 1fr; }
+.featured-media video { object-position: 50% 40%; }

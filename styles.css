@@ -383,3 +383,4 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
 .spec-table { grid-template-columns: repeat(4, 1fr); }
 .featured-media { grid-template-columns: 1fr; }
 .featured-media video { object-position: 50% 40%; }
+.xp-logo { height: 40px; width: auto; display: block; margin-bottom: 14px; }

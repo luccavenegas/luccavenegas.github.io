@@ -421,3 +421,9 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
 @media (max-width: 640px) { .hero-v2 { padding: 28px 0 20px; } .hero2 { gap: 18px; } .hero2-photo { max-width: 120px; } .hero2-photo img { border-radius: 14px; } .hero2 h1 { margin: 8px 0 10px; } }
 .hero2-role { font-size: 22px; font-weight: 600; color: var(--ink); margin: -4px 0 14px; }
 @media (max-width: 640px) { .hero2-role { font-size: 18px; } }
+.hero2 h1 { margin-top: 0; }
+.hero2-school { font-size: 26px; font-weight: 700; letter-spacing: -0.01em; color: var(--accent); margin: 0 0 6px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.hero2-school span { font-size: 15px; font-weight: 600; color: var(--ink-3); letter-spacing: .02em; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; }
+.hero2-role { font-size: 19px; font-weight: 500; color: var(--ink); margin: 0 0 18px; }
+.hero2-role .dot { color: var(--ink-3); margin: 0 4px; }
+@media (max-width: 640px) { .hero2-school { font-size: 21px; } .hero2-role { font-size: 16px; } }

@@ -17,10 +17,8 @@
     <a class="logo" href="#top"><span class="logo-mark">LV</span>Lucca Venegas</a>
     <div class="nav-links">
       <a href="#projects">Projects</a>
-      <a href="#demo">Demo</a>
       <a href="#experience">Experience</a>
       <a href="#about">About</a>
-      <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
       <a class="btn" href="assets/Lucca-Venegas-Resume.pdf" target="_blank" rel="noopener">Resume</a>
     </div>
@@ -32,7 +30,7 @@
     <div class="hero2">
       <div class="hero2-text">
         <h1>Lucca Venegas</h1>
-        <div class="hero2-school">University of Michigan <span>Class of 2029</span></div>
+        <div class="hero2-school"><img class="block-m" src="assets/block-m.svg" alt="">University of Michigan <span>Class of 2029</span></div>
         <p class="hero2-role">B.S.E. Mechanical Engineering <span class="dot">·</span> Robotics Concentration</p>
         <p class="hero2-lede">Feel free to take a look at my projects and experience below, and reach out if you'd like to connect.</p>
         <div class="hero-actions">
@@ -46,6 +44,16 @@
     </div>
   </div>
 </header>
+<div class="affil">
+  <div class="wrap affil-inner">
+    <span class="affil-label">Where I've worked</span>
+    <span class="affil-item"><img class="affil-m" src="assets/block-m.svg" alt="">University of Michigan</span>
+    <span class="affil-item">Neurobionics Lab</span>
+    <span class="affil-item">Michigan Autonomous Aerial Vehicles</span>
+    <img class="affil-logo" src="assets/adventhealth-logo.png" alt="AdventHealth">
+  </div>
+</div>
+
 
 <section id="projects">
   <div class="wrap">
@@ -76,15 +84,15 @@
     </a>
 
     <div class="mini-cards">
-      <a class="mini" href="rfid.html">
+      <a class="mini reveal" href="rfid.html" style="--i:0">
         <div class="mini-img"><img src="assets/rfid-badge-test-face.jpg" alt="Testing the RFID badge trigger" loading="lazy"></div>
         <div class="mini-body"><div class="label">AdventHealth · Interactive demo</div><h3>RFID to Proto Luma proof of concept</h3><p>Badge walk-up triggers a personalized greeting on a life-size holographic display. 100% over 25 trials.</p><span class="more">Open the demo →</span></div>
       </a>
-      <a class="mini" href="#neurobionics">
+      <a class="mini reveal" href="#neurobionics" style="--i:1">
         <div class="mini-img"><img src="assets/osl-leg-treadmill.jpg" alt="The Open-Source Leg prosthesis" loading="lazy"></div>
         <div class="mini-body"><div class="label">Neurobionics Lab · Research</div><h3>Open-Source Leg battery pack</h3><p>Custom 36 V lithium-ion pack and housing packaged inside a robotic knee-ankle prosthesis.</p><span class="more">Read more →</span></div>
       </a>
-      <a class="mini" href="#maav">
+      <a class="mini reveal" href="#maav" style="--i:2">
         <div class="mini-img"><img src="assets/maav-drone.jpg" alt="The MAAV autonomous drone" loading="lazy"></div>
         <div class="mini-body"><div class="label">MAAV · Team</div><h3>Autonomous drone airframe</h3><p>Carbon-fiber frame panels under 4 mm, waterjet-cut to tolerance; competition pilot at IARC 2026.</p><span class="more">Read more →</span></div>
       </a>
@@ -101,7 +109,7 @@
         <h2>RFID to Proto Luma proof of concept</h2>
       </div>
     </div>
-    <div class="demo-grid">
+    <div class="demo-grid reveal">
       <div class="demo-text">
         <p>A badge-holder walks up, a long-range RFID reader picks up their badge, and a life-size Proto Luma holographic display switches from an idle loop to a personalized greeting. I built the reader setup and the software end to end.</p>
         <p class="muted">This model is live. Click any part or label to see what it does, and drag to look around.</p>
@@ -127,7 +135,7 @@
       <div><h2>Experience</h2></div>
     </div>
 
-    <article class="xp" id="neurobionics">
+    <article class="xp reveal" id="neurobionics">
       <div class="xp-text">
         <div class="when">Aug 2026 – present</div>
         <h3>Neurobionics Lab, University of Michigan Robotics</h3>
@@ -150,7 +158,7 @@
       </div>
     </article>
 
-    <article class="xp" id="maav">
+    <article class="xp reveal" id="maav">
       <div class="xp-text">
         <div class="when">Aug 2025 – present</div>
         <h3>Michigan Autonomous Aerial Vehicles (MAAV)</h3>
@@ -173,7 +181,7 @@
       </div>
     </article>
 
-    <article class="xp">
+    <article class="xp reveal">
       <div class="xp-text">
         <img class="xp-logo" src="assets/adventhealth-logo.png" alt="AdventHealth">
         <div class="when">May 2026 – Jun 2026</div>
@@ -202,7 +210,7 @@
 <section id="about" class="about-section">
   <div class="wrap">
     <div class="section-head"><div><h2>About me</h2></div></div>
-    <div class="about-grid">
+    <div class="about-grid reveal">
       <div class="intro">
           <p>Hi! My name is Lucca Venegas. I was born in Miami, FL, and when I turned 3, I moved to Orlando, where I grew up. I've always had a passion for building, even as early as elementary and middle school when I was on the LEGO robotics team.</p>
           <p>Leaving this in high school, I rediscovered this passion I once had while applying to college, which led me to Michigan. I believe it's been the perfect time to get back into this incredible field, in a time where substantial and mind-blowing strides are made in Physical AI on a daily basis. My hope is that I can get involved in the development of this new technology to help others in ways we probably can't imagine yet.</p>
@@ -226,19 +234,19 @@
       </div>
     </div>
     <div class="skills">
-      <div class="skill-group">
+      <div class="skill-group reveal" style="--i:0">
         <h3>CAD &amp; Analysis</h3>
         <ul class="tags"><li>SolidWorks</li><li>Onshape</li><li>Fusion 360</li><li>MATLAB</li></ul>
       </div>
-      <div class="skill-group">
+      <div class="skill-group reveal" style="--i:1">
         <h3>Fabrication</h3>
         <ul class="tags"><li>FDM 3D printing</li><li>Waterjet</li><li>Carbon fiber</li><li>Soldering</li><li>Precision measurement</li></ul>
       </div>
-      <div class="skill-group">
+      <div class="skill-group reveal" style="--i:2">
         <h3>Electronics</h3>
         <ul class="tags"><li>CAN bus</li><li>Stepper / servo drivers</li><li>Multimeter fault isolation</li><li>Li-ion packs</li><li>RFID</li></ul>
       </div>
-      <div class="skill-group">
+      <div class="skill-group reveal" style="--i:3">
         <h3>Software</h3>
         <ul class="tags"><li>C++</li><li>Python</li><li>Linux</li><li>MQTT</li><li>SocketCAN</li></ul>
       </div>
@@ -249,7 +257,7 @@
 
 <section id="contact">
   <div class="wrap">
-    <div class="contact">
+    <div class="contact reveal">
       <div>
 
         <h2>Contact</h2>
@@ -268,6 +276,7 @@
 <footer>
   <div class="wrap">
     <span>© 2026 Lucca Venegas</span>
+    <a class="crumb" href="#top">Back to top ↑</a>
     <span class="mono">Ann Arbor, MI</span>
   </div>
 </footer>
@@ -289,5 +298,6 @@ window.addEventListener('DOMContentLoaded', () => {
   } else start();
 });
 </script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

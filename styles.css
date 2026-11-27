@@ -427,3 +427,78 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
 .hero2-role { font-size: 19px; font-weight: 500; color: var(--ink); margin: 0 0 18px; }
 .hero2-role .dot { color: var(--ink-3); margin: 0 4px; }
 @media (max-width: 640px) { .hero2-school { font-size: 21px; } .hero2-role { font-size: 16px; } }
+
+/* ---------- Polish pass (research-backed details) ---------- */
+body { text-rendering: optimizeLegibility; }
+h1, h2, h3 { text-wrap: balance; }
+p, li { text-wrap: pretty; }
+.hero2 h1 { letter-spacing: -0.035em; line-height: 1.02; font-weight: 700; }
+.when, .spec b, .stat .v, .dt td { font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+section, header[id], article[id] { scroll-margin-top: 80px; }
+/* nav */
+.nav { background: rgb(255 255 255 / .72); backdrop-filter: saturate(180%) blur(12px); -webkit-backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid transparent; transition: border-color .2s; }
+.nav.scrolled { border-bottom-color: rgb(0 0 0 / .07); }
+.nav-links a:not(.btn) { position: relative; transition: color .15s; }
+.nav-links a[aria-current]:not(.btn) { color: var(--ink); }
+.nav-links a[aria-current]:not(.btn)::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; border-radius: 2px; background: var(--accent); }
+/* layered tinted shadows */
+:root { --shadow-sm: 0 1px 1px hsl(220 30% 20% / .04), 0 2px 4px hsl(220 30% 20% / .04), 0 6px 12px hsl(220 30% 20% / .04);
+        --shadow-lg: 0 1px 1px hsl(220 30% 20% / .05), 0 4px 8px hsl(220 30% 20% / .06), 0 12px 24px hsl(220 30% 20% / .07), 0 24px 48px hsl(220 30% 20% / .08); }
+.featured, .mini, .scene-box, .cad-box { box-shadow: var(--shadow-sm); border-color: rgb(0 0 0 / .07); }
+.hero2-photo img { box-shadow: var(--shadow-lg); }
+.featured, .mini { transition: transform 250ms cubic-bezier(.23,1,.32,1), box-shadow 250ms cubic-bezier(.23,1,.32,1), border-color 200ms; }
+.featured-media, .mini-img { overflow: hidden; }
+.featured-media video, .mini-img img { transition: transform 600ms cubic-bezier(.23,1,.32,1); }
+@media (hover: hover) and (pointer: fine) {
+  .featured:hover, .mini:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: rgb(47 111 222 / .35); }
+  .featured:hover .featured-media video, .mini:hover .mini-img img { transform: scale(1.03); }
+}
+/* buttons */
+.btn { transition: transform 140ms ease-out, background-color 150ms, border-color 150ms, color 150ms; }
+.btn:active { transform: scale(0.97); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+/* reveal */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 650ms cubic-bezier(.23,1,.32,1), transform 650ms cubic-bezier(.23,1,.32,1); transition-delay: calc(var(--i, 0) * 70ms); }
+.reveal.in { opacity: 1; transform: none; }
+.featured.reveal.in, .mini.reveal.in { transition: opacity 650ms cubic-bezier(.23,1,.32,1), transform 250ms cubic-bezier(.23,1,.32,1), box-shadow 250ms, border-color 200ms; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+/* hero glow + status pill */
+.hero-v2 { background: radial-gradient(55% 45% at 78% 10%, rgb(47 111 222 / .07), transparent 70%); }
+.status-pill { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; padding: 5px 12px 5px 10px; border-radius: 999px; background: rgb(34 197 94 / .1); color: #15803d; margin-bottom: 14px; }
+.status-pill .pulse { position: relative; width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
+.status-pill .pulse::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #22c55e; animation: ping 1.8s cubic-bezier(0,0,.2,1) infinite; }
+@keyframes ping { to { transform: scale(2.6); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .status-pill .pulse::after { animation: none; } }
+.hero2-role { color: var(--ink-2); }
+/* chips */
+.tags li { border: 1px solid rgb(0 0 0 / .08); background: #fafafa; border-radius: 8px; }
+/* video pause */
+.vid-toggle { position: absolute; right: 10px; bottom: 10px; width: 30px; height: 30px; border-radius: 50%; border: 0; background: rgb(17 17 17 / .55); color: #fff; font-size: 10px; cursor: pointer; display: grid; place-items: center; backdrop-filter: blur(4px); opacity: .85; z-index: 3; }
+.vid-toggle:hover { opacity: 1; }
+/* psychology-backed tweaks */
+:root { --ink-3: #6b6b6b; }
+body { font-size: 18px; }
+.xp p, .xp ul.points, .about-grid .intro p, .cad-intro, .prose p { max-width: 66ch; }
+.affil { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #fcfcfb; }
+.affil-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 36px; padding-top: 18px; padding-bottom: 18px; }
+.affil-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); }
+.affil-item { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: #555; opacity: .8; transition: opacity .2s, color .2s; }
+.affil-logo { height: 26px; width: auto; filter: grayscale(1); opacity: .6; transition: filter .2s, opacity .2s; }
+@media (hover: hover) { .affil-item:hover { opacity: 1; color: var(--ink); } .affil-logo:hover { filter: none; opacity: 1; } }
+@media (max-width: 640px) { .affil-inner { gap: 10px 22px; } .affil-item { font-size: 14px; } .affil-logo { height: 22px; } }
+@media (max-width: 640px) {
+  .affil-inner { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; gap: 20px; padding-top: 12px; padding-bottom: 12px; }
+  .affil-inner::-webkit-scrollbar { display: none; }
+  .affil-label { display: none; }
+  .affil-item { white-space: nowrap; font-size: 14px; }
+  .hero2-school { gap: 8px; }
+}
+/* Block M */
+.hero2-school { align-items: center; color: #00274C; }
+.block-m { height: 30px; width: auto; flex: none; filter: drop-shadow(0 2px 4px rgb(0 39 76 / .18)); }
+.affil-item { display: inline-flex; align-items: center; gap: 8px; }
+.affil-m { height: 18px; width: auto; filter: grayscale(1); opacity: .7; transition: filter .2s, opacity .2s; }
+@media (hover: hover) { .affil-item:hover .affil-m { filter: none; opacity: 1; } }
+@media (max-width: 640px) { .block-m { height: 24px; } }
+@media (max-width: 640px) { .affil-item, .affil-logo { flex: none; } .affil-inner { gap: 24px; } }
